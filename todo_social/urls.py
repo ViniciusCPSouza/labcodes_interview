@@ -16,9 +16,13 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from main_app import views as main_app_views
+from django.conf.urls import url, include
+from main_app import rest
 
 urlpatterns = [
     url(r'^home/', main_app_views.index),
     url(r'^admin/', admin.site.urls),
-    url(r'', include('social_auth.urls')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^', include('social_auth.urls')),
+    url(r'^', include(rest.router.urls)),
 ]

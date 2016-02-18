@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_auth',
+    'rest_framework',
     'main_app',
 ]
 
@@ -103,7 +104,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Auth-specific settings >>
-
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.facebook.FacebookBackend',
 )
@@ -116,8 +116,17 @@ LOGIN_REDIRECT_URL = '/home/'
 LOGIN_ERROR_URL    = '/login-error/'
 
 SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
-
 # Auth-specific settings <<
+
+# REST-specific settings >>
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+# REST-specific settings <<
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/

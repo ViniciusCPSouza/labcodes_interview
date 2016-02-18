@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.http import HttpResponse
 
 # -- Views
 
 def index(request):
 
-    return redirect("http://www.google.com")
+    return HttpResponse('')
