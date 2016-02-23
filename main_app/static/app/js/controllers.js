@@ -1,4 +1,6 @@
-app.controller("ListsController", function($scope, $q, GetFromREST)
+var appControllers = angular.module("TODOSocialControllers", ["TODOSocialServices"]);
+
+appControllers.controller("ListsController", function($scope, $q, GetFromREST)
 {
     GetFromREST.get("http://localhost:8000/api/todo_lists/?format=json").then(function(todo_data)
     {
@@ -13,8 +15,6 @@ app.controller("ListsController", function($scope, $q, GetFromREST)
             todo_list_obj.tasks = [];
 
             $scope.todo_lists.push(todo_list_obj);
-
-            console.info(todo_list["title"]);
 
             for (var j = 0; j < todo_list["tasks"].length; j++)
             {

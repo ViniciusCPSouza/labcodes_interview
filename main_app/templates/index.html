@@ -15,38 +15,21 @@
     <link href="{{ main_css }}" rel="stylesheet">
 
     <script src="//code.jquery.com/jquery.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-route.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
 
-    <script src="{{ main_js }}"></script>
     <script src="{{ services_js }}"></script>
     <script src="{{ controllers_js }}"></script>
+    <script src="{{ main_js }}"></script>
 
 </head>
 <body>
 
     <div class="panel panel-default">
-        <div class="panel-heading"> TODO Lists ({{ user.username}}) </div>
+    <div class="panel-heading"> TODO Lists ({{ user.username}}) </div>
 
-        {% load djangular_tags %}
-        {% angularjs %}
-        <div class="panel-body" ng-controller="ListsController">
-
-            <div ng-repeat="todo_list in todo_lists" class="panel panel-default todo_list">
-
-                <div class="panel-heading"> {{todo_list.title}} </div>
-
-                <ul class="panel-body list-group">
-
-                    <li ng-repeat="task in todo_list.tasks" class="list-group-item todo_task"> {{task}} </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-        {% endangularjs %}
-    </div>
+    <div ng-view class="panel-body todo_wrapper"></div>
 
 </body>
 </html>

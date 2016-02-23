@@ -1,6 +1,14 @@
+.todo_wrapper
+{
+    display: table;
+}
+
 .todo_list
 {
     width: 350px;
+    position: relative;
+    float: left;
+    margin: 0 10px 0 10px;
 }
 
 .todo_task

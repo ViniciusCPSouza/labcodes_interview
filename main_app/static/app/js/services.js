@@ -1,4 +1,6 @@
-app.service("GetFromREST", function($http)
+var appServices = angular.module("TODOSocialServices", []);
+
+appServices.service("GetFromREST", function($http)
 {
     this.get = function(url)
     {

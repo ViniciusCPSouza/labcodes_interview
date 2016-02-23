@@ -1,0 +1,15 @@
+<div ng-repeat="todo_list in todo_lists" class="panel panel-default todo_list">
+
+    <div class="panel-heading"> {{todo_list.title}} </div>
+
+    <ul class="panel-body list-group">
+
+        <li ng-repeat="task in todo_list.tasks" class="list-group-item todo_task"> {{task}} </li>
+
+        <button ng-click="xx()">+task</button>
+
+    </ul>
+
+</div>
+
+<button ng-click="xx()">+list</button>
