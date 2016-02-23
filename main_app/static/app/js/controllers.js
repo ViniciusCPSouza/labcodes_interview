@@ -1,4 +1,4 @@
-app.controller("ListsController", function($scope, $http, GetFromREST)
+app.controller("ListsController", function($scope, $q, GetFromREST)
 {
     GetFromREST.get("http://localhost:8000/api/todo_lists/?format=json").then(function(todo_data)
     {
@@ -14,11 +14,15 @@ app.controller("ListsController", function($scope, $http, GetFromREST)
 
             $scope.todo_lists.push(todo_list_obj);
 
+            console.info(todo_list["title"]);
+
             for (var j = 0; j < todo_list["tasks"].length; j++)
             {
-                GetFromREST.get(todo_list["tasks"][j]).then(function(task_data)
+                $q.all({task_data: GetFromREST.get(todo_list["tasks"][j]),
+                        todo_list: $q.when(todo_list_obj)})
+                .then(function(data)
                 {
-                    todo_list_obj.tasks.push(task_data["description"]);
+                    data.todo_list.tasks.push(data.task_data["description"]);
                 });
             }
         }
