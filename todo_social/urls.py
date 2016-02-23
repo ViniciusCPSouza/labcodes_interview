@@ -19,8 +19,8 @@ from main_app import views, urls
 from django.conf.urls import url, include
 
 urlpatterns = [
-    url(r'^home/', views.home),
+    url(r'^$', views.home),
     url(r'^admin/', admin.site.urls),
-    url(r'^', include(urls)),
+    url(r'^api/', include(urls)),
     url(r'^', include('social_auth.urls')),
 ]

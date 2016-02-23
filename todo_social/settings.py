@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_auth',
     'rest_framework',
+    'djangular',
     'main_app',
 ]
 
@@ -111,8 +112,8 @@ AUTHENTICATION_BACKENDS = (
 FACEBOOK_APP_ID = '1242563502423864'
 FACEBOOK_API_SECRET = '73876f5e07f65ee0d4e600e541eac520'
 
-LOGIN_URL          = '/login-form/'
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_URL          = '/login/facebook/'
+LOGIN_REDIRECT_URL = ''
 LOGIN_ERROR_URL    = '/login-error/'
 
 SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
@@ -146,3 +147,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")

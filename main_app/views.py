@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 from django.contrib.auth import models as auth_models
 from rest_framework import viewsets
 import serializers
@@ -30,6 +31,8 @@ class TODOListViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.TODOListSerializer
 
 
+@login_required
 def home(request):
 
-    return HttpResponse("")
+    context = {}
+    return render(request, 'index.html', context)
