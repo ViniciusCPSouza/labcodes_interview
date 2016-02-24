@@ -10,27 +10,23 @@ app.config(["$routeProvider", function($routeProvider)
     }).
     when("/add_todo_list",
     {
-        templateUrl: "", controller: ""
+        templateUrl: "/static/app/partial_html/add_todo_list.html", controller: "AddTODOListController"
     }).
-    when("/add_task",
+    when("/add_task/:list_id",
     {
-        templateUrl: "", controller: ""
+        templateUrl: "/static/app/partial_html/add_task.html", controller: "AddTaskController"
     }).
-    when("add_comment",
+    when("/add_comment/:task_id",
     {
-        templateUrl: "", controller: ""
+        templateUrl: "/static/app/partial_html/add_comment.html", controller: "AddCommentController"
     }).
-    when("edit_task",
+    when("/edit_todo_list/:list_id",
     {
-        templateUrl: "", controller: ""
+        templateUrl: "/static/app/partial_html/edit_todo_list.html", controller: "EditTODOListController"
     }).
-    when("delete_todo_list",
+    when("/edit_task/:task_id",
     {
-        templateUrl: "", controller: ""
-    }).
-    when("delete_task",
-    {
-        templateUrl: "", controller: ""
+        templateUrl: "/static/app/partial_html/edit_task.html", controller: "EditTaskController"
     }).
     otherwise(
     {

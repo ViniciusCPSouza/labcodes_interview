@@ -21,7 +21,7 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
 
         model = main_app_models.Comment
-        fields = ('text', 'author')
+        fields = ('pk', 'text', 'author')
 
 
 class TaskSerializer(serializers.HyperlinkedModelSerializer):
@@ -29,7 +29,7 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
 
         model = main_app_models.Task
-        fields = ('description', 'done', 'deadline', 'comments')
+        fields = ('pk', 'description', 'done', 'deadline', 'comments')
 
 
 class TODOListSerializer(serializers.HyperlinkedModelSerializer):
@@ -37,4 +37,4 @@ class TODOListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
 
         model = main_app_models.TODOList
-        fields = ('title', 'tasks')
+        fields = ('pk', 'title', 'tasks')

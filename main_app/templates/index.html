@@ -26,10 +26,12 @@
 </head>
 <body>
 
-    <div class="panel panel-default">
-    <div class="panel-heading"> TODO Lists ({{ user.username}}) </div>
+    <div class="panel panel-primary main_panel">
 
-    <div ng-view class="panel-body todo_wrapper"></div>
+        <div class="panel-heading todo_header"> <a href="#"> TODO Lists ({{ user.username}}) </a></div>
 
+        <div ng-view class="panel-body todo_wrapper"></div>
+
+    </div>
 </body>
 </html>

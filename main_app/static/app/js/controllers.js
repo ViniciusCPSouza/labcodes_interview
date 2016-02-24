@@ -12,6 +12,7 @@ appControllers.controller("ListsController", function($scope, $q, GetFromREST)
             var todo_list_obj = new Object();
 
             todo_list_obj.title = todo_list["title"];
+            todo_list_obj.id = todo_list["pk"]
             todo_list_obj.tasks = [];
 
             $scope.todo_lists.push(todo_list_obj);
@@ -22,9 +23,115 @@ appControllers.controller("ListsController", function($scope, $q, GetFromREST)
                         todo_list: $q.when(todo_list_obj)})
                 .then(function(data)
                 {
-                    data.todo_list.tasks.push(data.task_data["description"]);
+                    task_obj = new Object();
+
+                    task_obj.desc = data.task_data["description"]
+                    task_obj.id = data.task_data["pk"]
+
+                    data.todo_list.tasks.push(task_obj);
                 });
             }
         }
     });
 });
+
+appControllers.controller("AddCommentController", function($scope, $http, $routeParams)
+{
+    $scope.form_data = new Object();
+    $scope.form_data.parent_task = $routeParams.task_id
+
+    $scope.submit = function()
+    {
+        $http.post('forms/comments', $scope.form_data,
+                   {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function(data) { window.history.back(); });
+    }
+});
+
+appControllers.controller("AddTODOListController", function($scope, $http)
+{
+    $scope.form_data = new Object();
+
+    $scope.submit = function()
+    {
+        $http.post('forms/todo_lists', $scope.form_data,
+                   {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function(data) { window.history.back(); });
+    }
+});
+
+appControllers.controller("AddTaskController", function($scope, $http, $routeParams)
+{
+    $scope.form_data = new Object();
+    $scope.form_data.parent_list = $routeParams.list_id
+
+    $scope.submit = function()
+    {
+        $http.post('forms/tasks', $scope.form_data,
+                   {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function(data) { window.history.back(); });
+    }
+});
+
+appControllers.controller("EditTODOListController", function($scope, $http, $routeParams, GetFromREST)
+{
+    $scope.form_data = new Object();
+    $scope.form_data.id = $routeParams.list_id
+
+    var url = "http://localhost:8000/api/todo_lists/" + $routeParams.list_id + "/?format=json";
+
+    GetFromREST.get(url).then(function(todo_data)
+    {
+        $scope.form_data.title = todo_data["title"];
+    });
+
+    $scope.submit = function()
+    {
+        $http.post('forms/todo_lists', $scope.form_data,
+                   {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function(data) { window.history.back(); });
+    }
+});
+
+appControllers.controller("EditTaskController", function($scope, $http, $q, $routeParams, GetFromREST)
+{
+    $scope.form_data = new Object();
+    $scope.form_data.id = $routeParams.task_id
+
+    var url = "http://localhost:8000/api/tasks/" + $routeParams.task_id + "/?format=json";
+
+    GetFromREST.get(url).then(function(task_data)
+    {
+        $scope.form_data.description = task_data["description"];
+        $scope.form_data.deadline = task_data["deadline"];
+        $scope.form_data.done = task_data["done"];
+        $scope.task_id = task_data["pk"];
+
+        $scope.form_data.comments = [];
+
+        for (var j = 0; j < task_data["comments"].length; j++)
+        {
+            $q.all({comment_data: GetFromREST.get(task_data["comments"][j]),
+                    form_data: $q.when($scope.form_data)})
+            .then(function(data)
+            {
+                comment_obj = new Object();
+
+                comment_obj.text = data.comment_data["text"]
+
+                data.form_data.comments.push(comment_obj);
+
+                $q.all({user_data: GetFromREST.get(data.comment_data["author"]),
+                        comment: $q.when(comment_obj)})
+                .then(function(get_data)
+                {
+                    get_data.comment.author = get_data.user_data["username"]
+                });
+            });
+        }
+    });
+
+    $scope.submit = function()
+    {
+        $http.post('forms/tasks', $scope.form_data,
+                   {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function(data) { window.history.back(); });
+    }
+});
+
+appControllers.controller("DummyController", function($scope){});
