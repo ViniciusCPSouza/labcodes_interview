@@ -125,7 +125,7 @@ appControllers.controller("EditTODOListController", function($scope, $http, $rou
     }
 });
 
-appControllers.controller("EditTaskController", function($scope, $http, $q, $routeParams, GetFromREST)
+appControllers.controller("EditTaskController", function($scope, $http, $q, $routeParams, $location, GetFromREST)
 {
     $scope.form_data = new Object();
     $scope.form_data.id = $routeParams.task_id
@@ -168,6 +168,29 @@ appControllers.controller("EditTaskController", function($scope, $http, $q, $rou
         $http.post('forms/tasks', $scope.form_data,
                    {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function(data) { window.history.back(); });
     }
+
+    $scope.$watch(function(scope)
+                  {
+                    return scope.form_data.done;
+                  },
+                  function(new_value, old_value)
+                  {
+                    if (new_value)
+                    {
+                        if (new_value == true)
+                        {
+                            FB.ui({
+                                    method: 'share',
+                                    name: "I've completed task '" + $scope.form_data.description + "'!",
+                                    link: $location.absUrl().split('?')[0],
+                                    picture: 'https://orig07.deviantart.net/2045/f/2011/022/d/5/adventure_time_ocean_of_fear_by_xrq0000000_a-d37tnax.jpg',
+                                    caption: "Weird shit.",
+                                    description: 'Stuff Stuff Stuff',
+                                    message: ''
+                                  });
+                        }
+                    }
+                  });
 });
 
 appControllers.controller("DummyController", function($scope){});
