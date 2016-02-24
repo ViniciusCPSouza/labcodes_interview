@@ -1,8 +1,8 @@
 var appControllers = angular.module("TODOSocialControllers", ["TODOSocialServices"]);
 
-appControllers.controller("ListsController", function($scope, $q, GetFromREST)
+appControllers.controller("ListsController", function($scope, $q, $location, GetFromREST)
 {
-    GetFromREST.get("http://localhost:8000/api/todo_lists/?format=json").then(function(todo_data)
+    GetFromREST.get("https://" + $location.host() + ":" + $location.port() + "/api/todo_lists/?format=json").then(function(todo_data)
     {
         $scope.todo_lists = [];
 
@@ -111,7 +111,7 @@ appControllers.controller("EditTODOListController", function($scope, $http, $rou
     $scope.form_data = new Object();
     $scope.form_data.id = $routeParams.list_id
 
-    var url = "http://localhost:8000/api/todo_lists/" + $routeParams.list_id + "/?format=json";
+    var url = "https://" + $location.host() + ":" + $location.port() + "/api/todo_lists/" + $routeParams.list_id + "/?format=json";
 
     GetFromREST.get(url).then(function(todo_data)
     {
@@ -130,7 +130,7 @@ appControllers.controller("EditTaskController", function($scope, $http, $q, $rou
     $scope.form_data = new Object();
     $scope.form_data.id = $routeParams.task_id
 
-    var url = "http://localhost:8000/api/tasks/" + $routeParams.task_id + "/?format=json";
+    var url = "https://" + $location.host() + ":" + $location.port() + "api/tasks/" + $routeParams.task_id + "/?format=json";
 
     GetFromREST.get(url).then(function(task_data)
     {
