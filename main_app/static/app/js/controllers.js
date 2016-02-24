@@ -130,7 +130,7 @@ appControllers.controller("EditTaskController", function($scope, $http, $q, $rou
     $scope.form_data = new Object();
     $scope.form_data.id = $routeParams.task_id
 
-    var url = "https://" + $location.host() + ":" + $location.port() + "api/tasks/" + $routeParams.task_id + "/?format=json";
+    var url = "https://" + $location.host() + ":" + $location.port() + "/api/tasks/" + $routeParams.task_id + "/?format=json";
 
     GetFromREST.get(url).then(function(task_data)
     {
