@@ -35,6 +35,42 @@ appControllers.controller("ListsController", function($scope, $q, GetFromREST)
     });
 });
 
+appControllers.controller("DeleteTODOListController", function($scope, $http, $routeParams)
+{
+    $scope.form_data = new Object();
+
+    $scope.submitYes = function()
+    {
+        $scope.form_data.id = $routeParams.list_id;
+
+        $http.post('delete/todo_lists', $scope.form_data,
+                   {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function(data) { window.history.back(); });
+    }
+
+    $scope.submitNo = function()
+    {
+        window.history.back();
+    }
+});
+
+appControllers.controller("DeleteTaskController", function($scope, $http, $routeParams)
+{
+    $scope.form_data = new Object();
+
+    $scope.submitYes = function()
+    {
+        $scope.form_data.id = $routeParams.task_id;
+
+        $http.post('delete/tasks', $scope.form_data,
+                   {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function(data) { window.history.back(); });
+    }
+
+    $scope.submitNo = function()
+    {
+        window.history.back();
+    }
+});
+
 appControllers.controller("AddCommentController", function($scope, $http, $routeParams)
 {
     $scope.form_data = new Object();

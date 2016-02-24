@@ -28,6 +28,14 @@ app.config(["$routeProvider", function($routeProvider)
     {
         templateUrl: "/static/app/partial_html/edit_task.html", controller: "EditTaskController"
     }).
+    when("/delete_task/:task_id",
+    {
+        templateUrl: "/static/app/partial_html/delete_task.html", controller: "DeleteTaskController"
+    }).
+    when("/delete_todo_list/:list_id",
+    {
+        templateUrl: "/static/app/partial_html/delete_todo_list.html", controller: "DeleteTODOListController"
+    }).
     otherwise(
     {
         redirectTo: "/"

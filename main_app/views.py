@@ -121,3 +121,37 @@ def comment_form(request):
         parent_task.save()
 
     return HttpResponse()
+
+
+def delete_task(request):
+
+    if request.method == "POST":
+
+        task = main_app_models.Task.objects.get(pk=int(json.loads(request.body)["id"]))
+
+        for comment in task.comments.all():
+
+            comment.delete()
+
+        task.delete()
+
+    return HttpResponse()
+
+
+def delete_todo_list(request):
+
+    if request.method == "POST":
+
+        todo_list = main_app_models.TODOList.objects.get(pk=int(json.loads(request.body)["id"]))
+
+        for task in todo_list.tasks.all():
+
+            for comment in task.comments.all():
+
+                comment.delete()
+
+            task.delete()
+
+        todo_list.delete()
+
+    return HttpResponse()
