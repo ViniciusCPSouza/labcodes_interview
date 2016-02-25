@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^$', views.home),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(urls)),
+    url(r'^logout/', views.logout),
     url(r'^forms/todo_lists', views.todo_list_form),
     url(r'^forms/tasks', views.task_form),
     url(r'^forms/comments', views.comment_form),

@@ -3,7 +3,8 @@ import json
 
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.contrib.auth import logout as auth_logout
+from django.shortcuts import render, redirect
 from django.contrib.auth import models as auth_models
 from rest_framework import viewsets
 import serializers
@@ -40,6 +41,12 @@ def home(request):
 
     context = {}
     return render(request, 'index.html', context)
+
+
+def logout(request):
+    """Logs out user"""
+    auth_logout(request)
+    return redirect("/")
 
 
 def todo_list_form(request):
