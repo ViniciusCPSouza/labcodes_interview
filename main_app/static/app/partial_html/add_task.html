@@ -2,10 +2,10 @@
   <div class="panel-heading">Add a new Task</div>
   <div class="panel-body">
 
-    <form class="simple-form">
+    <form name="taskForm" class="simple-form" novalidate>
         <fieldset class="form-group">
-            <label for="desc">Description</label> <br/>
-            <textarea class="form-control" id="desc" rows="2" ng-model="form_data.description"></textarea>
+            <label for="description">Description</label> <br/>
+            <textarea name="description" class="form-control" id="description" rows="2" ng-model="form_data.description" required></textarea>
         </fieldset>
 
         <fieldset class="form-group">
@@ -13,7 +13,7 @@
             <input type="datetime-local" id="deadline"  ng-model="form_data.deadline" />
         </fieldset>
 
-        <input class="btn btn-success" type="submit" ng-click="submit()" value="Done" />
+        <input class="btn btn-success" type="submit" ng-disabled="taskForm.$invalid" ng-click="submit()" value="Done" />
 
     </form>
 
