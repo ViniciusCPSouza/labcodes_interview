@@ -2,6 +2,19 @@ var appServices = angular.module("TODOSocialServices", []);
 
 appServices.service("TODOList", function($http, $q, $location, Task)
 {
+    var self = this;
+
+    this._set_tasks = function(task_url, todo_list, index)
+    {
+        return $q.all({task: Task.get(task_url),
+                       todo_list: $q.when(todo_list),
+                       task_index: $q.when(index)})
+                .then(function(task_data)
+                {
+                    task_data.todo_list.tasks[task_data.task_index] = task_data.task;
+                });
+    }
+
     this.get = function(rest_url)
     {
         return $http.get(rest_url).then(function(todo_list_response)
@@ -10,13 +23,7 @@ appServices.service("TODOList", function($http, $q, $location, Task)
 
             for (var j = 0; j < todo_list.tasks.length; j++)
             {
-                $q.all({task: Task.get(todo_list.tasks[j]),
-                        todo_list: $q.when(todo_list),
-                        task_index: $q.when(j)})
-                .then(function(task_data)
-                {
-                    task_data.todo_list.tasks[task_data.task_index] = task_data.task;
-                });
+                self._set_tasks(todo_list.tasks[j], todo_list, j);
             }
 
             return $q.when(todo_list);
@@ -40,13 +47,7 @@ appServices.service("TODOList", function($http, $q, $location, Task)
 
                 for (var j = 0; j < todo_list.tasks.length; j++)
                 {
-                    $q.all({task: Task.get(todo_list.tasks[j]),
-                            todo_list: $q.when(todo_list),
-                            task_index: $q.when(j)})
-                    .then(function(task_data)
-                    {
-                        task_data.todo_list.tasks[task_data.task_index] = task_data.task;
-                    });
+                    self._set_tasks(todo_list.tasks[j], todo_list, j);
                 }
             }
 
