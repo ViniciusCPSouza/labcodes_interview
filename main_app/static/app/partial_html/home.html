@@ -2,19 +2,19 @@
 
     <div class="panel-heading">
         <span>{{todo_list.title}}</span>
-        <div class="delete_icon"><a href="#delete_todo_list/{{todo_list.id}}"><img src="http://furtaev.ru/preview/trash_can_2_small.png" width=16px"></a></div>
-        <div class="edit_icon"><a href="#edit_todo_list/{{todo_list.id}}"><img src="http://www2.psd100.com/ppp/2013/11/0501/edit-icon-1105222908.png" width=16px"></a></div>
+        <div class="delete_icon"><a href="#delete_todo_list/{{todo_list.pk}}"><img src="http://furtaev.ru/preview/trash_can_2_small.png" width=16px"></a></div>
+        <div class="edit_icon"><a href="#edit_todo_list/{{todo_list.pk}}"><img src="http://www2.psd100.com/ppp/2013/11/0501/edit-icon-1105222908.png" width=16px"></a></div>
     </div>
 
     <ul class="panel-body list-group .col-md-4">
 
         <li ng-repeat="task in todo_list.tasks" class="list-group-item todo_task">
-            <span>{{task.desc}}</span>
-            <div class="delete_icon"><a href="#delete_task/{{task.id}}"><img src="http://furtaev.ru/preview/trash_can_2_small.png" width=16px"></a></div>
-            <div class="edit_icon"><a href="#edit_task/{{task.id}}"><img src="http://www2.psd100.com/ppp/2013/11/0501/edit-icon-1105222908.png" width=16px"></a></div>
+            <span>{{task.description}}</span>
+            <div class="delete_icon"><a href="#delete_task/{{task.pk}}"><img src="http://furtaev.ru/preview/trash_can_2_small.png" width=16px"></a></div>
+            <div class="edit_icon"><a href="#edit_task/{{task.pk}}"><img src="http://www2.psd100.com/ppp/2013/11/0501/edit-icon-1105222908.png" width=16px"></a></div>
         </li>
 
-        <li class="list-group-item todo_task"> <a href="#add_task/{{todo_list.id}}" class="btn btn-primary">+task</a> </li>
+        <li class="list-group-item todo_task"> <a href="#add_task/{{todo_list.pk}}" class="btn btn-primary">+task</a> </li>
 
     </ul>
 
