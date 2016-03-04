@@ -1,4 +1,4 @@
-var appControllers = angular.module("TODOSocialControllers", ["TODOSocialServices"]);
+var appControllers = angular.module("TODOSocialControllers", ["TODOSocialServices", "TODOConstants"]);
 
 appControllers.controller("ListsController", function($scope, $q, $location, GetFromREST)
 {

@@ -1,4 +1,4 @@
-var appServices = angular.module("TODOSocialServices", []);
+var appServices = angular.module("TODOSocialServices", ["TODOConstants"]);
 
 appServices.service("GetFromREST", function($http)
 {
