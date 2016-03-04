@@ -106,7 +106,7 @@ appControllers.controller("AddTaskController", function($scope, $http, $routePar
     }
 });
 
-appControllers.controller("EditTODOListController", function($scope, $http, $routeParams, GetFromREST)
+appControllers.controller("EditTODOListController", function($scope, $http, $routeParams, $location, GetFromREST)
 {
     $scope.form_data = new Object();
     $scope.form_data.id = $routeParams.list_id
