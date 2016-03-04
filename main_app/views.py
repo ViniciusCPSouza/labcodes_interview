@@ -1,3 +1,5 @@
+"""The views module."""
+
 import dateutil.parser
 import json
 
@@ -44,7 +46,7 @@ def home(request):
 
 
 def logout(request):
-    """Logs out user"""
+    """Log out user."""
     auth_logout(request)
     return redirect("/")
 

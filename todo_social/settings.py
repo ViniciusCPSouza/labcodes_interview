@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -85,7 +86,6 @@ WSGI_APPLICATION = 'todo_social.wsgi.application'
 #     }
 # }
 
-import dj_database_url
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=500)
 
@@ -116,11 +116,11 @@ AUTHENTICATION_BACKENDS = (
 FACEBOOK_APP_ID = '1242563502423864'
 FACEBOOK_API_SECRET = '73876f5e07f65ee0d4e600e541eac520'
 
-LOGIN_URL          = '/login/facebook/'
+LOGIN_URL = '/login/facebook/'
 LOGIN_REDIRECT_URL = ''
-LOGIN_ERROR_URL    = '/login-error/'
+LOGIN_ERROR_URL = '/login-error/'
 
-SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 # Auth-specific settings <<
 
 # REST-specific settings >>
