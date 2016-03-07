@@ -86,8 +86,16 @@ WSGI_APPLICATION = 'todo_social.wsgi.application'
 #     }
 # }
 
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config(conn_max_age=500)
+# DATABASES = {}
+# DATABASES['default'] = dj_database_url.config(conn_max_age=500)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                             'db.sqlite3')
+    }
+}
 
 
 # Password validation

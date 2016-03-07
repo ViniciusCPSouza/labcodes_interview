@@ -59,19 +59,22 @@ appServices.service("TODOList", function($http, $q, $location, Task)
 
     this.del = function(obj_data)
     {
-        return $http.post('delete/todo_lists', obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+        return $http({
+                        method : "DELETE",
+                        url : "api/todo_lists/" + obj_data.id,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                     });
     }
 
     this.add = function(obj_data)
     {
-        return $http.post('forms/todo_lists', obj_data,
+        return $http.post('api/todo_lists', obj_data,
                           {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
     }
 
     this.update = function(obj_data)
     {
-        return $http.post('forms/todo_lists', obj_data,
+        return $http.post('api/todo_lists/' + obj_data.id, obj_data,
                           {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
     }
 });
@@ -101,21 +104,24 @@ appServices.service("Task", function($http, $q, Comment)
 
     this.del = function(obj_data)
     {
-        return $http.post('delete/tasks', obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+        return $http({
+                        method : "DELETE",
+                        url : "api/tasks/" + obj_data.id,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                     });
     }
 
     this.add = function(obj_data, list_id)
     {
         obj_data.parent_list = list_id;
 
-        return $http.post('forms/tasks', obj_data,
+        return $http.post('api/tasks', obj_data,
                           {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
     }
 
     this.update = function(obj_data)
     {
-        return $http.post('forms/tasks', obj_data,
+        return $http.post('api/tasks/' + obj_data.id, obj_data,
                           {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
     }
 });
@@ -143,7 +149,7 @@ appServices.service("Comment", function($http, $q)
     {
         obj_data.parent_task = task_id;
 
-        return $http.post('forms/comments', obj_data,
+        return $http.post('api/comments', obj_data,
                           {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
     }
 });

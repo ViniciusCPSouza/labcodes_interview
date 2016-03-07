@@ -2,6 +2,7 @@
 
 from django.contrib.auth import models as auth_models
 from rest_framework import serializers
+import dateutil.parser
 
 import models as main_app_models
 
@@ -34,6 +35,28 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
 
         model = main_app_models.Task
         fields = ('pk', 'description', 'done', 'deadline', 'comments')
+
+    def create(self, validated_data):
+
+        deadline = validated_data.get('deadline', None)
+
+        if deadline:
+
+            print dir(validated_data)
+
+            validated_data.put('deadline', dateutil.parser.parse(deadline))
+
+        return main_app_models.Task(**validated_data)
+
+    def update(self, instance, validated_data):
+
+        new_deadline = validated_data.get('deadline', None)
+
+        if new_deadline:
+
+            instance.deadline = dateutil.parser.parse(new_deadline)
+
+        return instance
 
 
 class TODOListSerializer(serializers.HyperlinkedModelSerializer):

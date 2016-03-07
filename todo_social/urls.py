@@ -22,10 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(urls)),
     url(r'^logout/', views.logout),
-    url(r'^forms/todo_lists', views.todo_list_form),
-    url(r'^forms/tasks', views.task_form),
-    url(r'^forms/comments', views.comment_form),
-    url(r'^delete/tasks', views.delete_task),
-    url(r'^delete/todo_lists', views.delete_todo_list),
     url(r'^', include('social_auth.urls')),
 ]
