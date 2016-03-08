@@ -19,11 +19,11 @@ class Task(models.Model):
     description = models.CharField("The subject of the task", max_length=300)
     done = models.BooleanField("Whether or not the task is finished", default=False)
     deadline = models.DateTimeField("The deadline for this task", null=True, blank=True)
-    comments = models.ManyToManyField(Comment)
+    comments = models.ManyToManyField(Comment, blank=True)
 
 
 class TODOList(models.Model):
     """A TODO list, which is a named list of tasks."""
 
     title = models.CharField("The title of the list", max_length=80)
-    tasks = models.ManyToManyField(Task)
+    tasks = models.ManyToManyField(Task, blank=True)

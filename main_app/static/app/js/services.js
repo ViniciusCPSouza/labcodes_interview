@@ -1,4 +1,20 @@
+encode2URL = function(obj)
+{
+    var str = [];
+    
+    for(var p in obj)
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    
+    return str.join("&");
+}
+
 var appServices = angular.module("TODOSocialServices", []);
+
+appServices.config(function($httpProvider)
+{
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+});
 
 appServices.service("TODOList", function($http, $q, $location, Task)
 {
@@ -61,21 +77,23 @@ appServices.service("TODOList", function($http, $q, $location, Task)
     {
         return $http({
                         method : "DELETE",
-                        url : "api/todo_lists/" + obj_data.id,
+                        url : "api/todo_lists/" + obj_data.id + "/",
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                      });
     }
 
     this.add = function(obj_data)
     {
-        return $http.post('api/todo_lists', obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+        return $http.post('api/todo_lists/', obj_data,
+                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                           transformRequest: encode2URL})
     }
 
     this.update = function(obj_data)
     {
-        return $http.post('api/todo_lists/' + obj_data.id, obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+        return $http.post('api/todo_lists/' + obj_data.id + "/", obj_data,
+                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                           transformRequest: encode2URL});
     }
 });
 
@@ -106,7 +124,7 @@ appServices.service("Task", function($http, $q, Comment)
     {
         return $http({
                         method : "DELETE",
-                        url : "api/tasks/" + obj_data.id,
+                        url : "api/tasks/" + obj_data.id + "/",
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                      });
     }
@@ -115,14 +133,16 @@ appServices.service("Task", function($http, $q, Comment)
     {
         obj_data.parent_list = list_id;
 
-        return $http.post('api/tasks', obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+        return $http.post('api/tasks/', obj_data,
+                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                           transformRequest: encode2URL})
     }
 
     this.update = function(obj_data)
     {
-        return $http.post('api/tasks/' + obj_data.id, obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+        return $http.post('api/tasks/' + obj_data.id + "/", obj_data,
+                          {headers: {'Content-Type': 'application/x-www-form-urlencoded',
+                           transformRequest: encode2URL}});
     }
 });
 
@@ -149,7 +169,8 @@ appServices.service("Comment", function($http, $q)
     {
         obj_data.parent_task = task_id;
 
-        return $http.post('api/comments', obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+        return $http.post('api/comments/', obj_data,
+                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                           transformRequest: encode2URL})
     }
 });
