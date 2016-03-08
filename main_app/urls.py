@@ -11,10 +11,10 @@ router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^todo_lists/$', views.todo_list_list, name="todo_list-list"),
-    url(r'^todo_lists/(?P<pk>\d+)/$', views.todo_list_detail, name="todo_list-detail"),
-    url(r'^tasks/$', views.task_list, name="task-list"),
-    url(r'^tasks/(?P<pk>\d+)/$', views.task_detail, name="task-detail"),
-    url(r'^comments/$', views.comment_list, name="comment-list"),
-    url(r'^comments/(?P<pk>\d+)/$', views.comment_detail, name="comment-detail"),
+    url(r'^todo_lists/$', views.TODOListList.as_view(), name="todo_list-list"),
+    url(r'^todo_lists/(?P<pk>\d+)/$', views.TODOListDetail.as_view(), name="todo_list-detail"),
+    url(r'^tasks/$', views.TaskList.as_view(), name="task-list"),
+    url(r'^tasks/(?P<pk>\d+)/$', views.TaskDetail.as_view(), name="task-detail"),
+    url(r'^comments/$', views.CommentList.as_view(), name="comment-list"),
+    url(r'^comments/(?P<pk>\d+)/$', views.CommentDetail.as_view(), name="comment-detail"),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))]

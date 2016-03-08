@@ -40,9 +40,10 @@ appControllers.controller("DeleteTaskController", function($scope, $routeParams,
     }
 });
 
-appControllers.controller("AddCommentController", function($scope, $routeParams, Comment)
+appControllers.controller("AddCommentController", function($scope, $routeParams, $location, Comment)
 {
     $scope.form_data = new Object();
+    $scope.form_data.author = "https://" + $location.host() + ":" + $location.port() + "/api/users/" + current_user_id + "/?format=json";
 
     $scope.submit = function()
     {

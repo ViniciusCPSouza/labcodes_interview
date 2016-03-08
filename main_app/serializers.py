@@ -14,7 +14,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         """Meta class."""
 
         model = auth_models.User
-        fields = ('url', 'username', 'email', 'is_staff')
+        fields = ('pk', 'url', 'username', 'email', 'is_staff')
 
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
@@ -42,11 +42,11 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
 
         if deadline:
 
-            print dir(validated_data)
+            validated_data.update('deadline', dateutil.parser.parse(deadline))
 
-            validated_data.put('deadline', dateutil.parser.parse(deadline))
+        print validated_data.keys()
 
-        return main_app_models.Task(**validated_data)
+        return main_app_models.Task.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
 
@@ -55,6 +55,11 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
         if new_deadline:
 
             instance.deadline = dateutil.parser.parse(new_deadline)
+
+        instance.description = validated_data.get('description', instance.description)
+        instance.done = validated_data.get('done', instance.done)
+
+        instance.save()
 
         return instance
 

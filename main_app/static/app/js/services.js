@@ -78,22 +78,21 @@ appServices.service("TODOList", function($http, $q, $location, Task)
         return $http({
                         method : "DELETE",
                         url : "api/todo_lists/" + obj_data.id + "/",
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                      });
     }
 
     this.add = function(obj_data)
     {
-        return $http.post('api/todo_lists/', obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                           transformRequest: encode2URL})
+        return $http.post('api/todo_lists/', obj_data)
     }
 
     this.update = function(obj_data)
     {
-        return $http.post('api/todo_lists/' + obj_data.id + "/", obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                           transformRequest: encode2URL});
+        return $http({
+                        method : "PUT",
+                        url : "api/todo_lists/" + obj_data.id + "/",
+                        data: obj_data
+                     });
     }
 });
 
@@ -124,25 +123,24 @@ appServices.service("Task", function($http, $q, Comment)
     {
         return $http({
                         method : "DELETE",
-                        url : "api/tasks/" + obj_data.id + "/",
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                        url : "api/tasks/" + obj_data.id + "/"
                      });
     }
 
     this.add = function(obj_data, list_id)
     {
-        obj_data.parent_list = list_id;
+        obj_data.parent_id = list_id;
 
-        return $http.post('api/tasks/', obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                           transformRequest: encode2URL})
+        return $http.post('api/tasks/', obj_data);
     }
 
     this.update = function(obj_data)
     {
-        return $http.post('api/tasks/' + obj_data.id + "/", obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded',
-                           transformRequest: encode2URL}});
+        return $http({
+                        method : "PUT",
+                        url : 'api/tasks/' + obj_data.id + "/",
+                        data: obj_data
+                     });
     }
 });
 
@@ -167,10 +165,8 @@ appServices.service("Comment", function($http, $q)
 
     this.add = function(obj_data, task_id)
     {
-        obj_data.parent_task = task_id;
+        obj_data.parent_id = task_id;
 
-        return $http.post('api/comments/', obj_data,
-                          {headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                           transformRequest: encode2URL})
+        return $http.post('api/comments/', obj_data);
     }
 });
