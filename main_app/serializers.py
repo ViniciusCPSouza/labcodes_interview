@@ -26,6 +26,16 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
         model = main_app_models.Comment
         fields = ('pk', 'text', 'author')
 
+    def create(self, validated_data):
+
+        comment = main_app_models.Comment.objects.create(**validated_data)
+
+        task = main_app_models.Task.objects.get(pk=int(self.initial_data["parent_id"]))
+        task.comments.add(comment)
+        task.save()
+
+        return comment
+
 
 class TaskSerializer(serializers.HyperlinkedModelSerializer):
     """The serializer class for the Task model."""
@@ -44,9 +54,13 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
 
             validated_data.update('deadline', dateutil.parser.parse(deadline))
 
-        print validated_data.keys()
+        task = main_app_models.Task.objects.create(**validated_data)
 
-        return main_app_models.Task.objects.create(**validated_data)
+        todo_list = main_app_models.TODOList.objects.get(pk=int(self.initial_data["parent_id"]))
+        todo_list.tasks.add(task)
+        todo_list.save()
+
+        return task
 
     def update(self, instance, validated_data):
 
