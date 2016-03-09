@@ -1,8 +1,7 @@
 """The views module."""
 
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.contrib.auth import models as auth_models
 from rest_framework import viewsets
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
@@ -51,12 +50,6 @@ class TODOListDetail(RetrieveUpdateDestroyAPIView):
 
     queryset = TODOList.objects.all()
     serializer_class = TODOListSerializer
-
-
-@login_required
-def home(request):
-    context = {}
-    return render(request, 'index.html', context)
 
 
 def logout(request):
