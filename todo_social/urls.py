@@ -18,8 +18,6 @@ from django.contrib import admin
 from main_app import views, urls
 
 urlpatterns = [
-    url(r'^$', views.home),
-    url(r'^admin/', admin.site.urls),
     url(r'^api/', include(urls)),
     url(r'^logout/', views.logout),
     url(r'^', include('social_auth.urls')),

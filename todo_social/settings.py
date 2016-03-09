@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sslserver',
     'social_auth',
+    'corsheaders',
     'rest_framework',
     'djangular',
     'main_app',
@@ -49,6 +50,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
@@ -144,6 +146,8 @@ REST_FRAMEWORK = {
     ]
 }
 # REST-specific settings <<
+
+CORS_ORIGIN_WHITELIST = ("https://localhost:8081")
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
