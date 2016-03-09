@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sslserver',
-    'social_auth',
     'corsheaders',
     'rest_framework',
     'djangular',
@@ -118,21 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-# Auth-specific settings >>
-AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.facebook.FacebookBackend',
-)
-
-FACEBOOK_APP_ID = '1242563502423864'
-FACEBOOK_API_SECRET = '73876f5e07f65ee0d4e600e541eac520'
-
-LOGIN_URL = '/login/facebook/'
-LOGIN_REDIRECT_URL = ''
-LOGIN_ERROR_URL = '/login-error/'
-
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
-# Auth-specific settings <<
 
 # REST-specific settings >>
 REST_FRAMEWORK = {
