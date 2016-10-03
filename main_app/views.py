@@ -82,15 +82,14 @@ def task_form(request):
 
             if "deadline" in post_data:
 
-                task.deadline = dateutil.parser.parse(post_data["deadline"])
+                if post_data["deadline"]:
+                    task.deadline = dateutil.parser.parse(post_data["deadline"])
 
             if "description" in post_data:
 
                 task.description = post_data["description"]
 
             if "done" in post_data:
-
-                print post_data["done"]
 
                 task.done = post_data["done"]
 
